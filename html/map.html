@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Practice</title>    
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=08c0b715a7d50830aa07e7b57531103b"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OPEN API Practice.</h1>
+            <h3>Chapter 2. Map :: 🚕✨</h3>
+        </div>
+        <div class="contents">
+            <div class="map-wrap">
+                <div id="map"></div>
+                
+            </div>
+            <div class="map-search">
+                <h3>지도 검색하기 :: 찾고싶은 키워드를 입력해주세요.</h3>
+                <div class="search-form">
+                    <input type="text" value="" name="search" class="input-search" placeholder="키워드 입력">
+                    <button class="btn btn-search">검색</button>
+                </div>    
+            </div>
+            
+        </div>
+        <div class="footer">
+            <div class="btn-wrap fl-center">
+                <button class="btn" onclick="history.back();">이전페이지 이동</button>
+            </div>
+        </div>
+
+    </div>    
+</body>
+<script>
+
+    // 출처:: 카카오 Open API 활용 (https://developers.kakao.com/) 
+
+    // OPEN API를 사용하려면, 인증키를 먼저 발급받아야함.
+    // 그 후 공식문서 절차를 따르면 됨
+    
+    var mapContainer = document.getElementById("map");
+
+    var mapOptions = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+    
+    var map = new kakao.maps.Map(mapContainer, mapOptions); // 지도 생성 및 객체 리턴
+    
+
+    $(document).ready(function(){
+        document.querySelector('.map-search .btn-search').addEventListener('click', function(){
+            var inputValue = document.querySelector('.map-search .input-search').value;
+            window.open("https://map.kakao.com/link/search/"+inputValue);
+        })
+    })
+    
+
+
+    
+</script>    
+</html>

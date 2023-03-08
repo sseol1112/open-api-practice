@@ -10,7 +10,7 @@
     <!-- <script src="../js/search.js"></script> -->
 </head>
 <body>
-    <div class="container-search">
+    <div class="container">
         <div class="header">
             <h1>OPEN API Practice.</h1>
             <h3>Chapter 1. Search :: 🔍✨</h3>
@@ -31,13 +31,12 @@
             </div>
         </div>
         <div class="footer">
-    
+            <a href="../html/map.html">Chapter 2로 이동하기. :: 미리보기 → Map </a>
         </div>
 
     </div>    
 </body>
 <script>
-    // import axios from 'axios';
 
     // 출처:: 카카오 Open API 활용 (https://developers.kakao.com/) 
 
@@ -84,7 +83,7 @@
                 if(image.length > 0){
                 html +=         '<img src="'+image+'" alt="">';
                 }else{
-                html +=         '<img src="https://www.lge.co.kr/lg5-common/images/icons/noimage.svg" alt="no-image" class="no-image">';
+                html +=         '<img src="https://www.lge.co.kr/lg5-common/images/icons/noimage.svg" alt="no-image">';
                 }
                 html +=     '</div>';
                 html +=     '<div class="text-wrap">';
@@ -92,6 +91,7 @@
                 html +=            '<div class="info-head">';
                 html +=              '<h4 class="title">'+title+'</h4>';
                 html +=              '<p class="status fc-red">'+status+'</p>';
+                html +=              '<p class="price"><span>'+price+'</span>'+salePrice+'원</p>';
                 html +=            '</div>'
                 html +=            '<span class="author">'+author+'</span>';
                 html +=            '<em class="publisher">'+publisher+'</em>';
@@ -108,6 +108,9 @@
             console.log("code: " + request.status)
             console.log("message: " + request.responseText)
             console.log("error: " + error);
+            if(request.status = 400) {
+                alert("400 error! 입력 값을 다시 확인해주세요.");
+            }
         }
     })        
 

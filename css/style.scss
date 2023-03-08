@@ -6,7 +6,8 @@
 
 /*common*/
 .blind {position:absolute; left:1px; top:1px; margin:-1px; overflow: hidden; clip: rect(0,0,0,0);}
-
+a{text-decoration: none; color:#000;}
+a:hover{text-decoration: underline;}
 /*fc-color*/
 .fc-white {color:#fff;}
 .fc-gray {color:#ccc;}
@@ -16,7 +17,9 @@
 .btn{background:#222; color:#fff; padding:10px 12px; cursor: pointer;}
 .header {border-bottom: 1px solid #222;}
 
-.container-search {
+.fl-center {display: flex; justify-content: center;}
+
+.container {
     padding: 5px 10px;
     .form-wrap {
         h5 {}
@@ -45,7 +48,8 @@
                 li {
                     display: flex;
                     align-items: center;
-                    margin-bottom: 10px;
+                    margin-bottom: 4px;
+                    border-bottom: 1px solid #ddd;
                     .thumbs {
                         margin-right: 20px;
                         img {
@@ -59,8 +63,14 @@
                             .info-head {
                                 display: flex;
                                 align-items: center;
-                                .status {
+                                p {
                                     margin-left: 10px;
+                                }
+                                .price {
+                                    span {
+                                        text-decoration: line-through;
+                                        margin-right: 6px;
+                                    }
                                 }
                             }
                             .publisher {
@@ -83,4 +93,26 @@
             }
         }
     }
+
+    //chapte 2 .map
+    .map-wrap {
+        margin: 10px 0;
+        display: flex;
+        
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+    }
+    .map-search {
+        .search-form {
+            display: flex;
+            align-items: center;
+            input {
+                height: 36px;
+            }
+        }
+    }
+
+    .footer {}
 }
