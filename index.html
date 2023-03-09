@@ -21,11 +21,12 @@
                 <div class="search-form">
                     <input type="text" value="" name="search" class="input-search" placeholder="책제목 입력">
                     <button class="btn btn-search">검색</button>
+                    <button class="btn btn-reset ml10">초기화</button>
                 </div>
             </div>
             <div class="result-wrap">
                 <div class="result-list">
-                    <ul>                        
+                    <ul>
                     </ul>
                 </div>
             </div>
@@ -44,77 +45,87 @@
     // 그 후 공식문서 절차를 따르면 됨
     
     let btnSearch = document.querySelector(".search-form .btn-search");     
+    let btnReset = document.querySelector(".search-form .btn-reset");     
     
     btnSearch.addEventListener('click', function() {
         getBookInfo();
     });
 
+    btnReset.addEventListener('click', function() {
+        resultReset();
+    });
+
     function getBookInfo (inputValue) {
 
-    const KAKAO_API_KEY = "15c5d3c0331e75e1db22a54afe24971c";
-    inputValue = document.querySelector('.input-search').value;    
-    console.log(inputValue);
+        const KAKAO_API_KEY = "15c5d3c0331e75e1db22a54afe24971c";
+        inputValue = document.querySelector('.input-search').value;    
+        console.log(inputValue);
 
-    $.ajax({
-        method: "GET",
-        url: "https://dapi.kakao.com/v3/search/book",
-        data : {
-            query : inputValue
-        },
-        headers : {
-            Authorization : "KakaoAK " + KAKAO_API_KEY // 공통으로 요청 할 헤더
-        },
-        success : function(data){
-            console.log(data);
-            const searchResult = data.documents;
-            let html = '';
-            for(let i=0; i<searchResult.length; i++) {
-                const title = searchResult[i].title;
-                const image = searchResult[i].thumbnail;
-                const author = searchResult[i].authors;
-                const publisher = searchResult[i].publisher;
-                const status = searchResult[i].status;
-                const content = searchResult[i].contents;
-                const price = searchResult[i].price;
-                const salePrice = searchResult[i].sale_price;
+        $.ajax({
+            method: "GET",
+            url: "https://dapi.kakao.com/v3/search/book",
+            data : {
+                query : inputValue
+            },
+            headers : {
+                Authorization : "KakaoAK " + KAKAO_API_KEY // 공통으로 요청 할 헤더
+            },
+            success : function(data){
+                console.log(data);
+                const searchResult = data.documents;
+                let html = '';
+                for(let i=0; i<searchResult.length; i++) {
+                    const title = searchResult[i].title;
+                    const image = searchResult[i].thumbnail;
+                    const author = searchResult[i].authors;
+                    const publisher = searchResult[i].publisher;
+                    const status = searchResult[i].status;
+                    const content = searchResult[i].contents;
+                    const price = searchResult[i].price;
+                    const salePrice = searchResult[i].sale_price;
 
-                html += '<li>';
-                html +=     '<div class="thumbs">';
-                if(image.length > 0){
-                html +=         '<img src="'+image+'" alt="">';
-                }else{
-                html +=         '<img src="https://www.lge.co.kr/lg5-common/images/icons/noimage.svg" alt="no-image">';
+                    html += '<li>';
+                    html +=     '<div class="thumbs">';
+                    if(image.length > 0){
+                    html +=         '<img src="'+image+'" alt="">';
+                    }else{
+                    html +=         '<img src="https://www.lge.co.kr/lg5-common/images/icons/noimage.svg" alt="no-image">';
+                    }
+                    html +=     '</div>';
+                    html +=     '<div class="text-wrap">';
+                    html +=         '<div class="info">';                    
+                    html +=            '<div class="info-head">';
+                    html +=              '<h4 class="title">'+title+'</h4>';
+                    html +=              '<p class="status fc-red">'+status+'</p>';
+                    html +=              '<p class="price"><span>'+price+'</span>'+salePrice+'원</p>';
+                    html +=            '</div>'
+                    html +=            '<span class="author">'+author+'</span>';
+                    html +=            '<em class="publisher">'+publisher+'</em>';
+                    html +=         '</div>';
+                    html +=         '<div class="contents">';
+                    html +=            '<p>'+content+'</p>';
+                    html +=         '</div>';
+                    html +=     '</div>';
+                    html += '</li>';
                 }
-                html +=     '</div>';
-                html +=     '<div class="text-wrap">';
-                html +=         '<div class="info">';                    
-                html +=            '<div class="info-head">';
-                html +=              '<h4 class="title">'+title+'</h4>';
-                html +=              '<p class="status fc-red">'+status+'</p>';
-                html +=              '<p class="price"><span>'+price+'</span>'+salePrice+'원</p>';
-                html +=            '</div>'
-                html +=            '<span class="author">'+author+'</span>';
-                html +=            '<em class="publisher">'+publisher+'</em>';
-                html +=         '</div>';
-                html +=         '<div class="contents">';
-                html +=            '<p>'+content+'</p>';
-                html +=         '</div>';
-                html +=     '</div>';
-                html += '</li>';
+                $('.result-wrap .result-list ul').html(html);
+            },
+            error : function(request,status,error) {
+                console.log("code: " + request.status)
+                console.log("message: " + request.responseText)
+                console.log("error: " + error);
+                if(request.status = 400) {
+                    alert("400 error! 입력 값을 다시 확인해주세요.");
+                }
             }
-            $('.result-wrap .result-list ul').html(html);
-        },
-        error : function(request,status,error) {
-            console.log("code: " + request.status)
-            console.log("message: " + request.responseText)
-            console.log("error: " + error);
-            if(request.status = 400) {
-                alert("400 error! 입력 값을 다시 확인해주세요.");
-            }
-        }
-    })        
+        })        
 
-    }   
+    }
+
+    function resultReset () {
+        document.querySelector('.input-search').value = "";
+        $('.result-wrap .result-list ul').html('');
+    }
 
     
 </script>    
