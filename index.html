@@ -39,14 +39,17 @@
 </body>
 <script>
 
-    // 출처:: 카카오 Open API 활용 (https://developers.kakao.com/) 
+    // 카카오 Open API 활용 (https://developers.kakao.com/) 
 
     // OPEN API를 사용하려면, 인증키를 먼저 발급받아야함.
     // 그 후 공식문서 절차를 따르면 됨
-    
+    let inputSearch = document.querySelector(".input-search");
     let btnSearch = document.querySelector(".search-form .btn-search");     
     let btnReset = document.querySelector(".search-form .btn-reset");     
     
+    inputSearch.addEventListener('keypress', function() {
+        getBookInfo();
+    });
     btnSearch.addEventListener('click', function() {
         getBookInfo();
     });
@@ -128,5 +131,5 @@
     }
 
     
-</script>    
+</script>
 </html>

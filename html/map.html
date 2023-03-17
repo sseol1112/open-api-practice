@@ -55,11 +55,18 @@
     
 
     $(document).ready(function(){
+        document.querySelector('.map-search .search-form .input-search').addEventListener('keypress', function(){
+            searchMap();
+        })
         document.querySelector('.map-search .btn-search').addEventListener('click', function(){
-            var inputValue = document.querySelector('.map-search .input-search').value;
-            window.open("https://map.kakao.com/link/search/"+inputValue);
+            searchMap();
         })
     })
+
+    function searchMap() {
+        var inputValue = document.querySelector('.map-search .input-search').value;
+        window.open("https://map.kakao.com/link/search/"+inputValue);
+    }
     
 
 
