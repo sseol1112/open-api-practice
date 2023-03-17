@@ -55,8 +55,10 @@
     
 
     $(document).ready(function(){
-        document.querySelector('.map-search .search-form .input-search').addEventListener('keypress', function(){
-            searchMap();
+        document.querySelector('.map-search .search-form .input-search').addEventListener('keypress', function(e){
+            if(e.keyCode === 13) {
+                searchMap();
+            }
         })
         document.querySelector('.map-search .btn-search').addEventListener('click', function(){
             searchMap();

@@ -47,8 +47,10 @@
     let btnSearch = document.querySelector(".search-form .btn-search");     
     let btnReset = document.querySelector(".search-form .btn-reset");     
     
-    inputSearch.addEventListener('keypress', function() {
-        getBookInfo();
+    inputSearch.addEventListener('keypress', function(e) {
+        if(e.keyCode === 13) {
+            getBookInfo();
+        }
     });
     btnSearch.addEventListener('click', function() {
         getBookInfo();
