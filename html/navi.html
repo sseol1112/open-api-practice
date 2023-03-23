@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js" integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx" crossorigin="anonymous"></script>
+    <title>API Practice</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OPEN API Practice.</h1>
+            <h3>Chapter 3. Navi :: 🚘🌏</h3>
+        </div>
+        <div class="contents">
+            <div class="form-wrap navi">
+                <h4 class="title">목적지를 검색해주세요.</h4>
+                <div class="search-form">
+                    <input type="text" value="" name="search" class="input-search" placeholder="목적지 입력">
+                    <button class="btn btn-search">검색</button>
+                    <button class="btn btn-reset ml10">초기화</button>
+                </div>
+            </div>
+            <div class="result-wrap">
+                <div class="result-list">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer fl-center">
+            <a class="btn" href="../index.html">목록 보기</a>
+        </div>
+
+    </div>  
+</body>
+<script>
+    //로컬 api 1차호출해서 검색한 장소의 좌표값을먼저 구하고, 거기에맞춰서 좌표값을 네비api 호출해서 데이터 넘어가도록 해주어야함
+    //네비 api는 모바일에서만 실행됨(카카오맵 어플 실행)
+    const KAKAO_API_KEY = "15c5d3c0331e75e1db22a54afe24971c";
+    const searchBtn = document.querySelector('.search-form .btn-search');
+    
+    Kakao.init(KAKAO_API_KEY);
+
+    searchBtn.addEventListener('click', function(){
+        startNavi();
+    })
+    
+    function startNavi() {
+        let naviInputvalue = document.querySelector(".form-wrap.navi .input-search").value;
+        let chktype = isMobile();
+
+        if(chktype == true ){
+                Kakao.Navi.start({
+                name : naviInputvalue,
+                x: 127.11205203011632,
+                y: 37.39279717586919,
+                coordType: 'wgs84',
+            });
+        } else {
+            alert("모바일 환경에서만 네비검색이 가능합니다. mobile로 검색해주세요.")
+        }
+
+    }
+
+    const isMobile = () => {
+        const user = navigator.userAgent;
+        let isCheck = false;
+
+        if ( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 ) {
+            isCheck = true;
+        }        
+        
+        return isCheck;
+    }
+</script>
+</html>

@@ -1,11 +1,8 @@
-/*common*/
-.blind {
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+/*reset*/
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 a {
@@ -15,6 +12,16 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/*common*/
+.blind {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
 }
 
 /*fc-color*/
@@ -57,6 +64,18 @@ a:hover {
 
 .container {
   padding: 5px 10px;
+}
+.container .api-example-list ul li {
+  border-bottom: 1px solid #ccc;
+}
+.container .api-example-list ul li a {
+  display: block;
+  padding: 10px 0;
+}
+.container .api-example-list ul li a:hover {
+  background: #333;
+  color: #fff;
+  text-decoration: none;
 }
 .container .form-wrap .search-form {
   display: flex;
@@ -134,6 +153,13 @@ a:hover {
 }
 .container .map-search .search-form input {
   height: 36px;
+}
+.container .footer {
+  margin-top: 40px;
+}
+.container .footer .btn-wrap .btn {
+  margin: 0 5px;
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */
