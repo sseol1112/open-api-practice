@@ -42,6 +42,8 @@
     //네비 api는 모바일에서만 실행됨(카카오맵 어플 실행)
     const KAKAO_API_KEY = "15c5d3c0331e75e1db22a54afe24971c";
     const searchBtn = document.querySelector('.search-form .btn-search');
+    const resetBtn = document.querySelector('.search-form .btn-reset');
+    let naviInputvalue = document.querySelector(".form-wrap.navi .input-search");
     
     Kakao.init(KAKAO_API_KEY);
 
@@ -50,12 +52,11 @@
     })
     
     function startNavi() {
-        let naviInputvalue = document.querySelector(".form-wrap.navi .input-search").value;
         let chktype = isMobile();
 
         if(chktype == true ){
                 Kakao.Navi.start({
-                name : naviInputvalue,
+                name : naviInputvalue.value,
                 x: 127.11205203011632,
                 y: 37.39279717586919,
                 coordType: 'wgs84',
@@ -65,6 +66,10 @@
         }
 
     }
+
+    resetBtn.addEventListener('click', function(){
+        naviInputvalue.value = "";
+    })
 
     const isMobile = () => {
         const user = navigator.userAgent;

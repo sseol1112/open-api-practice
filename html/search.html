@@ -30,9 +30,19 @@
                     </ul>
                 </div>
             </div>
+            <div class="pagination">
+                <div class="arrow-wrap">
+                    <a href="javascript:activePaging('prev');" class="prev arr">이전</a>
+                    <ul class="paging"></ul>
+                    <a href="javascript:activePaging('next');" class="next arr">다음</a>
+
+                </div>
+            </div>
         </div>
         <div class="footer fl-center">
-            <a class="btn" href="../index.html">목록 보기</a>
+            <div class="btn-wrap">
+                <a class="btn" href="../index.html">목록 보기</a>
+            </div>
         </div>
 
     </div>    
@@ -44,41 +54,61 @@
     // OPEN API를 사용하려면, 인증키를 먼저 발급받아야함.
     // 그 후 공식문서 절차를 따르면 됨
     let inputSearch = document.querySelector(".input-search");
+    let inputValue = '';
     let btnSearch = document.querySelector(".search-form .btn-search");     
     let btnReset = document.querySelector(".search-form .btn-reset");     
+    let pagination = document.querySelector(".pagination");
+    let curStart = '';
+    let curEnd = '';
     
+    // 키보드 Enter 누를 경우, 처리하기 위함
     inputSearch.addEventListener('keypress', function(e) {
         if(e.keyCode === 13) {
             getBookInfo();
         }
     });
+
+    // 검색버튼 클릭시,
     btnSearch.addEventListener('click', function() {
-        getBookInfo();
+        getBookInfo('', 1);
     });
 
+    // 초기화버튼 클릭시,
     btnReset.addEventListener('click', function() {
         resultReset();
+        pagination.style.display = "none";
     });
+    
+    
+    
+    function getBookInfo (inputValue, pageNum) {
 
-    function getBookInfo (inputValue) {
+        const KAKAO_API_KEY = "15c5d3c0331e75e1db22a54afe24971c"; //Kakao에서 발급받은 API 인증키
 
-        const KAKAO_API_KEY = "15c5d3c0331e75e1db22a54afe24971c";
-        inputValue = document.querySelector('.input-search').value;    
-        console.log(inputValue);
+        inputValue = document.querySelector('.input-search').value; //검색창에 입력한 값 저장하기 위한 변수           
 
+        // api 호출을 위한 $.ajax() 함수 사용 (비동기 통신)
         $.ajax({
-            method: "GET",
+            method: "GET", // 값을 얻어와야 함으로, GET방식
             url: "https://dapi.kakao.com/v3/search/book",
             data : {
-                query : inputValue
+                query : inputValue,
+                page : pageNum,
+                "is_end": true,
+                "pageable_count": 9,
+                "total_count": 10
             },
             headers : {
                 Authorization : "KakaoAK " + KAKAO_API_KEY // 공통으로 요청 할 헤더
             },
-            success : function(data){
+            success : function(data){ //api 호출 성공시, 하단 내용 실행
+                // 성공시 얻은 데이터 값의 길이 만큼 동적으로 마크업 생성하여 결과값 리스트 형태로 보이도록 구현하였음.
                 console.log(data);
                 const searchResult = data.documents;
+                const searchMeta = data.meta;
                 let html = '';
+                
+                setPaging(searchMeta,0,10);
                 for(let i=0; i<searchResult.length; i++) {
                     const title = searchResult[i].title;
                     const image = searchResult[i].thumbnail;
@@ -113,9 +143,17 @@
                     html +=     '</div>';
                     html += '</li>';
                 }
-                $('.result-wrap .result-list ul').html(html);
+                document.querySelector(".result-wrap").style.marginTop = "16px";
+                document.querySelector('.result-wrap .result-list ul').innerHTML = html;
+
+                if(searchMeta.is_end === true){
+                    document.querySelector(".next").classList.add("disabled");
+                } else {
+                    document.querySelector(".next").classList.remove("disabled");
+                }
+                
             },
-            error : function(request,status,error) {
+            error : function(request,status,error) { //api 호출 에러시, 하단 내용 실행
                 console.log("code: " + request.status)
                 console.log("message: " + request.responseText)
                 console.log("error: " + error);
@@ -127,11 +165,68 @@
 
     }
 
+    // 결과값 초기화
     function resultReset () {
+        document.querySelector(".result-wrap").style.marginTop = "350px";
         document.querySelector('.input-search').value = "";
-        $('.result-wrap .result-list ul').html('');
+        document.querySelector('.result-wrap .result-list ul').innerHTML = '';
+        // $('.result-wrap .result-list ul').html('');
     }
 
+    setPaging = (meta,start,last) => {
+        //마지막페이지가 아닐경우, 페이징그려줌
+        let pagingCount = meta.pageable_count/10;
+        let paging = document.querySelector(".paging");
+        let html = '';
+
+        for(var i=start; i<last; i++){
+            html += '<li><a href="javascript:chkPaging();" class="page">'+ (i+1) +'</a></li>';
+        }
+        
+        paging.innerHTML = html;
+        pagination.style.display = "flex";
+        
+        curStart = start;
+        curEnd = last;
+        // if(meta.is_end == false) {
+        //     for(var i=start; i<last; i++){
+        //         html += '<li><a href="javascript:chkPaging();" class="page">'+ (i+1) +'</a></li>';
+        //     }
+            
+        //     paging.innerHTML = html;
+        //     pagination.style.display = "flex";
+            
+        //     curStart = start;
+        //     curEnd = last;
+        // } else {
+        //     console.log("마지막 페이지입니다.")
+        // }
+    }
     
+    chkPaging = () => {
+        let pageIdx = document.querySelectorAll('.paging .page');
+        inputValue = document.querySelector('.input-search').value;
+        for(var i =0; i < pageIdx.length; i++){
+            pageIdx[i].addEventListener('click', function(e){
+            var idx = e.target;
+            var pageNum = idx.innerText;
+
+            getBookInfo(inputValue, pageNum);
+
+            });
+        }
+    }
+
+    activePaging = (param) => {
+        if(param ='next') {
+            curStart += 10;
+            curEnd += 10;
+            setPaging('',curStart,curEnd);
+        } else {
+            curStart -= 10;
+            curEnd -= 10;
+            setPaging('',curStart,curEnd);
+        }
+    }
 </script>
 </html>

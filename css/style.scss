@@ -24,8 +24,11 @@ a:hover{text-decoration: underline;}
 
 .fl-center {display: flex; justify-content: center;}
 
+.disabled {color:#ddd; cursor: pointer;}
+
 .container {
-    padding: 5px 10px;
+    padding: 10px 20px 20px;
+    border:1px solid #555;
     .api-example-list {
         ul {
             li {
@@ -56,12 +59,19 @@ a:hover{text-decoration: underline;}
             }
             .btn-search {
                 margin-left: 10px;
+                width: 100%;
+                max-width: 56px;
+            }
+            .btn-reset {
+                width: 100%;
+                max-width: 70px;
             }
         }
     }
 
     .result-wrap {
-        margin-top: 16px;
+        //margin-top: 16px;
+        margin-top: 350px;
         .result-list {
             ul {
                 margin: 0;
@@ -115,6 +125,20 @@ a:hover{text-decoration: underline;}
         }
     }
 
+    .pagination {
+        display: none;
+        justify-content: center;
+        .arrow-wrap {
+            display: flex;
+            .paging {
+                display: flex;
+                li {
+                    margin: 0 10px;
+                }
+            }            
+        }
+    }
+
     //chapte 2 .map
     .map-wrap {
         margin: 10px 0;
@@ -136,11 +160,15 @@ a:hover{text-decoration: underline;}
     }
 
     .footer {
-        margin-top: 40px;   
+        margin-top: 40px;
+        position: relative;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
         .btn-wrap {
             .btn {
                 margin: 0 5px;
-                font-size: 16px;
+                font-size: 14px;
             }
         }
     }

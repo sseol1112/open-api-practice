@@ -62,8 +62,14 @@ a:hover {
   justify-content: center;
 }
 
+.disabled {
+  color: #ddd;
+  cursor: pointer;
+}
+
 .container {
-  padding: 5px 10px;
+  padding: 10px 20px 20px;
+  border: 1px solid #555;
 }
 .container .api-example-list ul li {
   border-bottom: 1px solid #ccc;
@@ -92,9 +98,15 @@ a:hover {
 }
 .container .form-wrap .search-form .btn-search {
   margin-left: 10px;
+  width: 100%;
+  max-width: 56px;
+}
+.container .form-wrap .search-form .btn-reset {
+  width: 100%;
+  max-width: 70px;
 }
 .container .result-wrap {
-  margin-top: 16px;
+  margin-top: 350px;
 }
 .container .result-wrap .result-list ul {
   margin: 0;
@@ -139,6 +151,19 @@ a:hover {
   left: 6px;
   transform: translateY(-50%);
 }
+.container .pagination {
+  display: none;
+  justify-content: center;
+}
+.container .pagination .arrow-wrap {
+  display: flex;
+}
+.container .pagination .arrow-wrap .paging {
+  display: flex;
+}
+.container .pagination .arrow-wrap .paging li {
+  margin: 0 10px;
+}
 .container .map-wrap {
   margin: 10px 0;
   display: flex;
@@ -156,10 +181,14 @@ a:hover {
 }
 .container .footer {
   margin-top: 40px;
+  position: relative;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .container .footer .btn-wrap .btn {
   margin: 0 5px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /*# sourceMappingURL=style.css.map */
