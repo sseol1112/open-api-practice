@@ -32,10 +32,9 @@
             </div>
             <div class="pagination">
                 <div class="arrow-wrap">
-                    <a href="javascript:activePaging('prev');" class="prev arr">이전</a>
+                    <a href="javascript:;" class="prev">이전</a>
                     <ul class="paging"></ul>
-                    <a href="javascript:activePaging('next');" class="next arr">다음</a>
-
+                    <a href="javascript:;" class="next">다음</a>
                 </div>
             </div>
         </div>
@@ -60,6 +59,7 @@
     let pagination = document.querySelector(".pagination");
     let curStart = '';
     let curEnd = '';
+    let btnArrow = document.querySelectorAll(".arrow-wrap a");    
     
     // 키보드 Enter 누를 경우, 처리하기 위함
     inputSearch.addEventListener('keypress', function(e) {
@@ -79,6 +79,21 @@
         pagination.style.display = "none";
     });
     
+    //이전, 다음 버튼 클릭시 (pagination)
+    for(var i=0; i<btnArrow.length; i++) {
+        btnArrow[i].addEventListener('click', function(e){
+            let curTarget = e.target;
+            let curTargetClass = curTarget.className;
+
+            if(curTargetClass === "prev") {
+                activePaging("prev");
+            } else if(curTargetClass ==="next") {
+                activePaging("next");
+            } else {
+                e.preventDefault();
+            }
+        })
+    }
     
     
     function getBookInfo (inputValue, pageNum) {
@@ -201,6 +216,11 @@
         // } else {
         //     console.log("마지막 페이지입니다.")
         // }
+        if(curStart === 0) {
+            document.querySelector(".prev").classList.add("disabled");
+        } else {
+            document.querySelector(".prev").classList.remove("disabled");
+        }
     }
     
     chkPaging = () => {
@@ -218,7 +238,7 @@
     }
 
     activePaging = (param) => {
-        if(param ='next') {
+        if(param === 'next') {
             curStart += 10;
             curEnd += 10;
             setPaging('',curStart,curEnd);
@@ -229,4 +249,7 @@
         }
     }
 </script>
+
+
+
 </html>

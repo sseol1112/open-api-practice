@@ -64,7 +64,7 @@ a:hover {
 
 .disabled {
   color: #ddd;
-  cursor: pointer;
+  cursor: default;
 }
 
 .container {
