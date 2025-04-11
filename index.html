@@ -1,42 +1,37 @@
+
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>카카오 장난 메시지 공유</title>
-  <!-- 카카오 SDK 불러오기 -->
-  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 100px;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      background-color: #fee500;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Practice</title>    
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <!-- <script src="../js/search.js"></script> -->
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>KAKAO OPEN API Practice.</h1>
+            <h3>LIST</h3>
+        </div>
+        <div class="contents">
+            <div class="api-example-list">
+                <ul>
+                    <li><a href="./html/search.html">1. search</a></li>
+                    <li><a href="./html/map.html">2. map</a></li>
+                    <li><a href="./html/navi.html">3. navi</a></li>
+                    <li><a href="./html/share.html">4. 카카오 공유하기 - 만우절 장난!</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <!-- <a href="../html/map.html">Chapter 2로 이동하기. :: 미리보기 → Map </a> -->
+        </div>
 
-  <h1>📢 카카오톡 선물하기 기프티콘 도착!?</h1>
-  <p>친구에게 카카오톡 장난 메시지를 보내보세요 😆</p>
-  <button onclick="sendFoolMessage()">카카오톡으로 공유하기</button>
-
-  <script>
-    // JavaScript 키로 초기화 (너의 앱 키로 바꿔야 함!)
-    Kakao.init("08c0b715a7d50830aa07e7b57531103b");
-
-    function sendFoolMessage() {
-      Kakao.Link.sendCustom({
-        templateId: 119654 // Kakao developers에서 생성한 템플릿 ID 입력
-      });
-    }
-  </script>
-
+    </div>    
 </body>
+<script>
+</script>
 </html>
