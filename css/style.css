@@ -126,6 +126,9 @@ a:hover {
   height: 174px;
   border: 1px solid #ccc;
 }
+.container .result-wrap .result-list ul li .text-wrap {
+  padding-bottom: 24px;
+}
 .container .result-wrap .result-list ul li .text-wrap .info .info-head {
   display: flex;
   align-items: center;
@@ -150,6 +153,16 @@ a:hover {
   top: 50%;
   left: 6px;
   transform: translateY(-50%);
+}
+.container .result-wrap .result-list ul li .text-wrap .contents {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+.container .result-wrap .result-list ul li .text-wrap .contents p {
+  margin: 10px 0 0;
 }
 .container .pagination {
   display: none;
@@ -189,6 +202,7 @@ a:hover {
 .container .footer .btn-wrap .btn {
   margin: 0 5px;
   font-size: 14px;
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */
